@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Hand Tracking! • A-Frame</title>
+  <meta name="description" content="Hand Tracking! • A-Frame">
+  <script src="../../../dist/aframe-master.js"></script>
+  <script src="../../js/info-message.js"></script>
+  <script src="https://unpkg.com/aframe-environment-component@1.3.4/dist/aframe-environment-component.min.js"></script>
+  <script src="pinchable.js"></script>
+  <script src="color-change.js"></script>
+  <script src="slider.js"></script>
+  <script src="size-change.js"></script>
+  <script src="button.js"></script>
+  <script src="menu.js"></script>
+  <script src="pressable.js"></script>
+  <script src="event-manager.js"></script>
+</head>
+
+<body>
+  <a-scene environment info-message="htmlSrc: #messageText">
+    <a-entity>
+      <a-entity cursor="rayOrigin: mouse"></a-entity>
+    </a-entity>
+
+    <a-assets>
+      <a-asset-item id="messageText" src="message.html"></a-asset-item>
+        <img id="bombColor" src="./assets/Metal046B_1K-JPG_Color.jpg">
+        <img id="ropeColor" src="./assets/Rope001_1K-JPG_Color.jpg">
+    </a-assets>
+    <a-entity id="boxGeometry" position="0 2.0 -1" rotation="45 45 0"
+      geometry="primitive: box; height: 0.6; width: 0.6; depth: 0.6" material="color: #ff4b5c"
+      size-change scale="0.5 0.5 0.5"></a-entity>
+    <a-entity id="torusGeometry" position="0 2.0 -1" rotation="45 45 0"
+      geometry="primitive: torus; radius: 0.4; radius-tubular: 0.06" material="color: #d2e603" size-change
+      visible="false" scale="0.5 0.5 0.5"></a-entity>
+    <a-entity id="sphereGeometry" position="0 2.0 -1" rotation="45 45 0" geometry="primitive: sphere; radius: 0.6;"
+      material="color: #fcdab7" visible="false" size-change scale="0.5 0.5 0.5"></a-entity>
+    <a-entity id="bombGeometry" position="0 2 -1" rotation="0 0 0" visible="false" size-change scale="0.5 0.5 0.5">
+      <a-sphere size-change material="src: #bombColor" position="0 0 0" radius="0.4" color="#EF2D5E"></a-sphere>
+      <a-cylinder size-change material="src: #bombColor" rotation="30 0 -15" position="0.1 0.3 0.2" radius="0.17" height="0.15" color="#bombColor"></a-cylinder>
+      <a-cylinder size-change material="src: #ropeColor" rotation="25 0 -15" position="0.1 0.3 0.2" radius="0.01" height="0.5" color="#FFC65D"></a-cylinder>
+    </a-entity>
+    <a-entity id="floatGeometry" position="0 2 -1" rotation="0 0 0" visible="false" size-change scale="0.5 0.5 0.5" animation__float="property: position; to: 0 2.2 -1; dir: alternate; dur: 1000; loop: true;">
+      <a-sphere id="floatSphereGeometry" size-change position="0 0.5 0" radius="0.6" color="#EF2D5E"></a-sphere>
+      <a-sphere id="floatSmallSphereGeometry" size-change position="0 0.2 0" radius="0.4" color="#EF2D5E"></a-sphere>
+      <a-cylinder size-change position="0 -0.2 0" radius="0.01" height="1" color="#FFC65D"></a-cylinder>
+    </a-entity>
+
+    <a-entity id="menu" menu position="0 1.5 -0.5" rotation="-45 0 0" event-manager>
+      <a-entity slider position="0 0.10 0"></a-entity>
+      <a-entity id="sphereButton" button="label: sphere" position="-0.15 0 0"></a-entity>
+      <a-entity id="boxButton" button="label: box" position="0 0 0"></a-entity>
+      <a-entity id="torusButton" button="label: torus" position="0.15 0 0"></a-entity>
+      <a-entity id="darkModeButton" button="label: Dark Mode; width: 0.20; toggable: true"
+        position="0 -0.10 0"></a-entity>
+      <a-entity id="bombButton" button="label: Bomb; width: 0.10; toggable: true" position="-0.20 -0.10 0"></a-entity>
+      <a-entity id="floatButton" button="label: Float; width: 0.10; toggable: true" position="0.20 -0.10 0"></a-entity>
+    </a-entity>
+    <a-entity hand-tracking-controls="hand: left"></a-entity>
+    <a-entity hand-tracking-controls="hand: right"></a-entity>
+  </a-scene>
+</body>
+
+</html>
