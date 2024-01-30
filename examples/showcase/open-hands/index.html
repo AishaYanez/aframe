@@ -1,47 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A-Frame con Gestos</title>
-  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-  <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v6.0.0/dist/aframe-extras.min.js"></script>
+  <title>Most Basic Super-Hands Example</title>
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script>
+  <script src="https://rawgit.com/c-frame/aframe-super-hands-component/master/dist/super-hands.js"></script>
 </head>
+
 <body>
-
-  <script>
-    AFRAME.registerComponent('gesture-detector', {
-      schema: {
-        hand: { default: 'right' },
-        gesture: { default: 'thumbup' }
-      },
-
-      init: function () {
-        this.handleGesture = this.handleGesture.bind(this);
-        this.el.addEventListener('gesture-detected', this.handleGesture);
-      },
-
-      tick: function () {
-        const hand = this.el.sceneEl.querySelector(`[hand-controls="${this.data.hand}"]`);
-        const gestureDetected = hand.components['super-hands'].get(this.data.gesture);
-
-        if (gestureDetected) {
-          this.el.emit('gesture-detected', { hand: this.data.hand, gesture: this.data.gesture });
-        }
-      },
-
-      handleGesture: function (event) {
-        console.log(`Gesture Detected - Hand: ${event.detail.hand}, Gesture: ${event.detail.gesture}`);
-      }
-    });
-  </script>
-
   <a-scene>
-    <a-box gesture-detector position="0 1 -3" material="color: red" grabbable></a-box>
-    <a-entity hand-controls="left"></a-entity>
-    <a-entity hand-controls="right"></a-entity>
-    <a-camera></a-camera>
+    <a-assets></a-assets>
+    
+    <a-entity>
+      <a-camera></a-camera>
+      <a-entity sphere-collider="objects: a-box" super-hands hand-controls="hand: left"></a-entity>
+      <a-entity sphere-collider="objects: a-box" super-hands hand-controls="hand: right"></a-entity>
+    </a-entity>
+    <!-- hover & drag-drop won't have any obvious effect without some additional event handlers or components. See the examples page for more -->
+    <a-box hoverable grabbable stretchable draggable dropppable color="blue" position="0 0 -1"></a-box>
   </a-scene>
-
 </body>
-</html>
